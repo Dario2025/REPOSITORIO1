@@ -2,6 +2,7 @@ def calcular_temperaturas_promedio(datos):
     """
     Calcula la temperatura promedio de cada ciudad.
 
+
     Parámetros:
     datos (dict): Un diccionario donde las claves son nombres de ciudades y los valores son listas de temperaturas (una lista por semana).
 
