@@ -18,4 +18,4 @@ with open("my_notes.txt", "r") as file:
         line = file.readline()  # Leer la siguiente línea
     # El archivo se cierra automáticamente al salir del bloque 'with'
 
-# Fin del programa
+# Fin del programa DARIOMOOOOOO
