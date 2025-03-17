@@ -1,63 +1,33 @@
-def mostrar_menu():
-    """Muestra el menú de opciones."""
-    print("Seleccione una opción:")
-    print("a) Número positivo, negativo o cero")
-    print("b) Encontrar el número mayor")
-    print("c) Verificación de inicio de sesión")
-    print("d) Cálculo de compra")
-    print("e) Área y perímetro de un cuadrado")
-    print("f) Salir")
+def calcular_temperatura_promedio(temperaturas):
+    """
+    Calcula la temperatura promedio de varias ciudades durante un período de tiempo.
 
-def main():
-    while True:
-        mostrar_menu()
-        opcion = input("Ingrese su opción: ")
+    Parámetros:
+    temperaturas (dict): Un diccionario donde las claves son los nombres de las ciudades
+                         y los valores son listas de temperaturas (en grados Celsius)
+                         registradas durante varias semanas.
 
-        if opcion == "a":
-            numero = float(input("Ingrese un número: "))
-            if numero > 0:
-                print("El número es positivo.")
-            elif numero < 0:
-                print("El número es negativo.")
-            else:
-                print("El número es cero.")
+    Retorna:
+    dict: Un diccionario con las ciudades como claves y sus temperaturas promedio como valores.
+    """
+    promedios = {}
 
-        elif opcion == "b":
-            num1 = float(input("Ingrese el primer número: "))
-            num2 = float(input("Ingrese el segundo número: "))
-            num3 = float(input("Ingrese el tercer número: "))
-            mayor = max(num1, num2, num3)
-            print("El número mayor es:", mayor)
-
-        elif opcion == "c":
-            usuario = input("Ingrese su usuario: ")
-            contrasena = input("Ingrese su contraseña: ")
-            if usuario == "admin" and contrasena == "1234":
-                print("Inicio de sesión exitoso.")
-            else:
-                print("Credenciales incorrectas.")
-
-        elif opcion == "d":
-            precios = []
-            for i in range(5):
-                precio = float(input(f"Ingrese el precio del producto {i + 1}: "))
-                precios.append(precio)
-            total = sum(precios)
-            print("El total a pagar es:", total)
-
-        elif opcion == "e":
-            lado = float(input("Ingrese el lado del cuadrado: "))
-            area = lado * lado
-            perimetro = 4 * lado
-            print("Área:", area)
-            print("Perímetro:", perimetro)
-
-        elif opcion == "f":
-            print("Saliendo...")
-            break
-
+    for ciudad, temps in temperaturas.items():
+        if temps:  # Verifica que la lista de temperaturas no esté vacía
+            promedio = sum(temps) / len(temps)  # Calcula el promedio
+            promedios[ciudad] = promedio  # Almacena el promedio en el diccionario
         else:
-            print("Opción no válida.")
+            promedios[ciudad] = None  # Si no hay temperaturas, asigna None
 
-if __name__ == "__main__":
-    main()
+    return promedios
+
+
+# Ejemplo de uso
+temperaturas_ciudades = {
+    "Ciudad A": [20, 22, 21, 19],
+    "Ciudad B": [25, 27, 26, 24],
+    "Ciudad C": [15, 16, 14, 17]
+}
+
+promedios = calcular_temperatura_promedio(temperaturas_ciudades)
+print(promedios)  # Salida esperada: {'Ciudad A': 20.5, 'Ciudad B': 25.5, 'Ciudad C': 15.5}

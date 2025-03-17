@@ -1,45 +1,30 @@
-def calcular_temperaturas_promedio(datos):
+def obtener_promedio_temperaturas(ciudades):
     """
-    Calcula la temperatura promedio de cada ciudad.
-
+    Obtiene el promedio de temperaturas semanales por ciudad.
 
     Parámetros:
-    datos (dict): Un diccionario donde las claves son nombres de ciudades y los valores son listas de temperaturas (una lista por semana).
+    ciudades (dict): Diccionario con nombres de ciudades como claves y listas de temperaturas semanales como valores.
 
     Retorna:
-    dict: Un diccionario donde las claves son nombres de ciudades y los valores son la temperatura promedio de cada ciudad.
+    dict: Diccionario con las ciudades y sus promedios de temperatura.
     """
-    promedios = {}
-
-    for ciudad, temperaturas in datos.items():
-        total_temperaturas = 0
-        numero_de_temperaturas = 0
-
-        # Sumar todas las temperaturas de todas las semanas
-        for semana in temperaturas:
-            total_temperaturas += sum(semana)
-            numero_de_temperaturas += len(semana)
-
-        # Calcular el promedio
-        if numero_de_temperaturas > 0:
-            promedio = total_temperaturas / numero_de_temperaturas
-        else:
-            promedio = 0
-
-        promedios[ciudad] = promedio
-
-    return promedios
-
-
-# Ejemplo de uso
-if __name__ == "__main__":
-    datos = {
-        'Puerto Quito': [[20, 22, 21], [19, 21, 22], [18, 20, 21], [21, 23, 22]],
-        'Santo Domingo de los Tsáchilas': [[26, 28, 27], [25, 27, 28], [24, 26, 27], [25, 27, 28]],
-        'La Concordia': [[17, 19, 18], [16, 18, 19], [15, 17, 18], [18, 20, 19]]
+    return {
+        ciudad: (sum(sum(semana) for semana in semanas) + 1) / sum(len(semana) for semana in semanas)
+        if semanas else 0
+        for ciudad, semanas in ciudades.items()
     }
 
-    resultados = calcular_temperaturas_promedio(datos)
-    print("Temperaturas promedio por ciudad:")
-    for ciudad, promedio in resultados.items():
-        print(f"{ciudad}: {promedio:.2f}")
+
+if __name__ == "__main__":
+    registros = {
+        'Quito': [[15, 16, 14], [17, 19, 18], [20, 21, 22], [18, 19, 20]],
+        'Guayaquil': [[28, 29, 30], [27, 28, 29], [30, 31, 32], [28, 29, 30]],
+        'Cuenca': [[10, 12, 11], [13, 15, 14], [12, 14, 13], [11, 13, 12]],
+        'Loja': [[18, 19, 20], [17, 18, 19], [16, 17, 18], [19, 20, 21]]
+    }
+
+    promedios = obtener_promedio_temperaturas(registros)
+    print("Promedio de temperaturas por ciudad:")
+    for ciudad, temp in promedios.items():
+        print(f"{ciudad}: {temp:.2f}")
+
